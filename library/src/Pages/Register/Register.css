@@ -1,0 +1,44 @@
+.register-container {
+  background-color: #f0f2f5; /* Adjust the background color if needed */
+}
+
+.authentication-form {
+  max-width: 400px;
+  width: 100%;
+  padding: 24px;
+}
+
+.text-secondary {
+  color: #1890ff; /* Adjust secondary color */
+}
+
+.bg-primary {
+  background-color: #001529; /* Primary background color */
+}
+
+.bg-white {
+  background-color: #ffffff;
+}
+
+.text-primary {
+  color: #001529; /* Primary text color */
+}
+
+button.ant-btn {
+  width: 100%;
+}
+
+.custom-er-button {
+  background-color: #064c16; /* Primary button color */
+  border-color: #064c16; /* Primary button color */
+}
+
+.custom-register-button:hover {
+  background-color: #52c41a; /* Green theme hover color */
+  border-color: #52c41a; /* Green theme hover border color */
+}
+
+.custom-register-button:focus {
+  outline: none;
+  box-shadow: none;
+}
