@@ -7,5 +7,5 @@ const port = process.env.PORT || 6000;
 
 const usersRoute = require("./routes/usersRoute");
 
-app.use("./api/users", usersRoute);
+app.use("/api/users", usersRoute);
 app.listen(port, () => console.log(`server is running on port ${port}`));

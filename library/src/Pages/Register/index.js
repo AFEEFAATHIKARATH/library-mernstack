@@ -1,29 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Register.css"; // Assuming you have a CSS file for custom styles
-import Button from '../../Components/Button';
+import Button from "../../Components/Button";
 import { RegisterUser } from "../../services/users";
-import { Form, message,Input } from "antd";
+import { Form, message, Input } from "antd";
+
 function Register() {
-  const onFinish = async(values) => {
+ const navigate=useNavigate()
+  const onFinish = async (values) => {
     try {
       const response = await RegisterUser(values);
+      console.log(response);
       if (response.success) {
-      message.success(response.message)
+        message.success(response.message);
       } else {
-        message.error(response.message)
-    }
+        message.error(response.message);
+      }
     } catch (error) {
-      message.error(error.message)
-   }
+      message.error(error.message);
+    }
   };
-
+ useEffect(() => {
+   const token = localStorage.getItem("token");
+   if (token) {
+  navigate('/')
+   }
+ }, []);
   return (
     <div className="register-container h-screen bg-primary flex items-center justify-center">
       <div className="authentication-form bg-white p-6 rounded shadow-lg">
         <h1 className="text-secondary text-2xl font-bold mb-4 text-center">
-           REGISTER
+          REGISTER
         </h1>
         <hr className="mb-4" />
         <Form layout="vertical" onFinish={onFinish}>
@@ -75,11 +83,12 @@ function Register() {
           >
             <Input type="password" placeholder="Password" />
           </Form.Item>
-         
+
           <div className="text-center mt-2">
-            <Button title="Register" type="submit" /><br />
+            <Button title="Register" type="submit" />
             <br />
-                      <Link to="/login" className="text-primary text-sm underline">
+            <br />
+            <Link to="/login" className="text-primary text-sm underline">
               Already have an account? Click Here To Login
             </Link>
           </div>

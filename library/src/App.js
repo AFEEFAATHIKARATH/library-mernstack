@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import "./App.css";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
@@ -9,6 +10,7 @@ import "./stylesheets/theme.css";
 import "./stylesheets/sizes.css";
 import "./stylesheets/custom-components.css";
 import "./stylesheets/form-elements.css";
+import ProtectedRoute from "./Components/ProtectedRoute";
 
 function App() {
   const data = {
@@ -22,7 +24,7 @@ function App() {
      
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
         </Routes>
