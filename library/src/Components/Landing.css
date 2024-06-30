@@ -1,0 +1,27 @@
+.navigation-menu {
+  background-color: #fff;
+  font-size: 1rem;
+  text-transform: uppercase;
+  height: 70px; /* Increased height */
+  display: flex;
+  align-items: center;
+}
+
+.navigation-menu .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #000; /* Changed to black */
+}
+
+.navigation-menu .ant-menu-item a {
+  color: #000; /* Changed to black */
+}
+
+.navigation-menu .ant-menu-item a:hover {
+  color: #3498db;
+}
+
+.navigation-menu .ant-menu-item-selected {
+  background-color: transparent !important;
+  border-bottom: 2px solid #3498db;
+}

@@ -1,0 +1,48 @@
+#header {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+  background: transparent;
+}
+
+.intro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+  z-index: 1; /* Ensure text and button are above particles */
+}
+
+.intro-text {
+  z-index: 2; /* Ensure text and button are above particles */
+  padding-top: 20%; /* Adjust this value to vertically center the content */
+}
+
+h1 {
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+}
+
+.btn-custom {
+  color: #fff;
+  background-color: #3498db;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  transition: background-color 0.3s;
+}
+
+.btn-custom:hover {
+  background-color: #2980b9;
+}

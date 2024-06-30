@@ -3,14 +3,19 @@ import { Form, message } from "antd";
 import Button from "../../Components/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginUser } from "../../services/users";
+import { useDispatch } from "react-redux";
+import { HideLoading, ShowLoading } from "../../Redux/loadersSlice";
 
 
 
 function Login() {
  const navigate=useNavigate()
+  const dispatch = useDispatch();
   const onFinish = async (values) => {
     try {
+      dispatch(ShowLoading())
       const response = await LoginUser(values);
+      dispatch(HideLoading())
       if (response.success) {
         message.success(response.message);
         localStorage.setItem("token",response.data)
@@ -19,6 +24,7 @@ function Login() {
         message.error(response.message)
       }
     } catch (error) {
+      dispatch(HideLoading())
       message.error(error.message)
       
     }

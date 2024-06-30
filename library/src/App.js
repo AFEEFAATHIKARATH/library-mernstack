@@ -1,6 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
@@ -11,24 +10,45 @@ import "./stylesheets/sizes.css";
 import "./stylesheets/custom-components.css";
 import "./stylesheets/form-elements.css";
 import ProtectedRoute from "./Components/ProtectedRoute";
-
+import About from "./Pages/About";
+import Services from "./Pages/Services";
+import Gallery from "./Pages/Gallery";
+import Features from "./Pages/Features";
+import LandingPage from "./Components/LandingPage";
+import { useSelector } from "react-redux";
+import Loader from "./Components/Loader";
+import Profile from "./Pages/Profile";
+  
 function App() {
-  const data = {
-    title: "Welcome to My Landing Page",
-    paragraph: "This is a paragraph about the landing page.",
-  };
-
+  const { loading } = useSelector((state)=>state.loaders)
   return (
     <div className="App">
-      
-     
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-        </Routes>
-      </BrowserRouter>
+      {loading && <Loader />}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+            <Profile/>
+            </ProtectedRoute>
+          }
+        />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/features" element={<Features />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/landing" element={<LandingPage />} />
+      </Routes>
     </div>
   );
 }
