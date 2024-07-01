@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+
 const bookSchema = new mongoose.Schema(
   {
     title: {
@@ -38,9 +39,18 @@ const bookSchema = new mongoose.Schema(
       ref: "users",
       required: true,
     },
+    category: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,
   }
 );
+
 module.exports = mongoose.model("Book", bookSchema);

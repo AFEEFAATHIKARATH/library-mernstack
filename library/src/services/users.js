@@ -30,6 +30,17 @@ export const GetLoggedInUserDetails = async () => {
     throw error;
   }
 };
+//get all users
+export const GetAllUsers = async (role) => {
+  try {
+    const response = await axiosInstance.get(
+      `/api/users/get-all-users/${role}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
 
 

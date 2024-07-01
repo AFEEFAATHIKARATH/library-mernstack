@@ -8,6 +8,8 @@ import { Form, message, Input } from "antd";
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../../Redux/loadersSlice";
 
+
+
 function Register() {
   const navigate = useNavigate()
   const dispatch=useDispatch()

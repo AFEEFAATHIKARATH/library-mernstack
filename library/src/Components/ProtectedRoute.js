@@ -19,9 +19,13 @@ function ProtectedRoute({ children }) {
       if (response.success) {
         dispatch(setUser(response.data));
       } else {
+        localStorage.removeItem("token")
+        navigate('/login')
         message.error(response.message);
       }
     } catch (error) {
+      localStorage.removeItem("token")
+      navigate("/login")
       dispatch(HideLoading());
       message.error(error.message);
     }
