@@ -9,5 +9,5 @@ const usersRoute = require("./routes/usersRoute");
 const booksRoute=require("./routes/bookRoute")
 app.use("/api/users", usersRoute);
 app.use("/api/books", booksRoute)
-app.use("/api/issues", issuesRoute)
+app.use("/api/issues", issueRoute)
 app.listen(port, () => console.log(`server is running on port ${port}`));
