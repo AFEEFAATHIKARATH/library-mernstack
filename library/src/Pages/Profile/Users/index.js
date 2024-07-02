@@ -5,7 +5,11 @@ import { HideLoading, ShowLoading } from "../../../Redux/loadersSlice";
 import Button from "../../../Components/Button";
 import moment from "moment";
 import { GetAllUsers } from "../../../services/users";
-function Users({role}) {
+import IssuedBooks from "../BorrowedBooks";
+
+function Users({ role }) {
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [showIssuedBooks, setShowIssuedBooks] = useState(false);
   const [users, setUsers] = React.useState([]);
   const dispatch = useDispatch();
   const getUsers = async () => {
@@ -23,6 +27,7 @@ function Users({role}) {
       message.error(error.message);
     }
   };
+
   useEffect(() => {
     getUsers();
   }, []);
@@ -54,15 +59,29 @@ function Users({role}) {
       dataIndex: "actions",
       render: (actions, record) => (
         <div>
-          <Button title="Books" variant="outlined" />
+          <Button
+            title="Books"
+            variant="outlined"
+            onClick={() => {
+              setSelectedUser(record);
+              setShowIssuedBooks(true);
+            }}
+          />
         </div>
       ),
     },
   ];
-
   return (
     <div>
       <Table dataSource={users} columns={columns} />
+
+      {showIssuedBooks && (
+        <IssuedBooks
+          showIssuedBooks={showIssuedBooks}
+          setShowIssuedBooks={setShowIssuedBooks}
+          selectedUser={selectedUser}
+        />
+      )}
     </div>
   );
 }
