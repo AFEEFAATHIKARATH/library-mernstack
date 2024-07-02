@@ -12,16 +12,16 @@ function Profile() {
           <Books />
         </TabPane>
         <TabPane tab="Patrons" key="2">
-          <Users
-          role="patron" />
+          <Users role="patron" />
         </TabPane>
         <TabPane tab="librarians" key="3">
-          <Users
-            role="librarian"/>
+          <Users role="librarian" />
         </TabPane>
         <TabPane tab="Admins" key="4">
-          <Users
-          role="Admin"/>
+          <Users role="Admin" />
+        </TabPane>
+        <TabPane tab=" Reports" key="5">
+          <Users role="report" />
         </TabPane>
       </Tabs>
     </div>

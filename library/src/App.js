@@ -18,7 +18,8 @@ import LandingPage from "./Components/LandingPage";
 import { useSelector } from "react-redux";
 import Loader from "./Components/Loader";
 import Profile from "./Pages/Profile";
-  
+import BookDescription from "./Pages/BookDescription";
+
 function App() {
   const { loading } = useSelector((state)=>state.loaders)
   return (
@@ -34,10 +35,18 @@ function App() {
           }
         />
         <Route
+          path="/book/:id"
+          element={
+            <ProtectedRoute>
+              <BookDescription />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/profile"
           element={
             <ProtectedRoute>
-            <Profile/>
+              <Profile />
             </ProtectedRoute>
           }
         />
