@@ -1,0 +1,34 @@
+/* Users.css */
+
+.table-id,
+.table-email,
+.table-phone,
+.table-createdAt {
+  display: table-cell;
+}
+
+@media (max-width: 768px) {
+  .table-id,
+  .table-email,
+  .table-phone,
+  .table-createdAt {
+    display: none;
+  }
+
+  .table-name,
+  .table-actions {
+    width: 50%;
+  }
+
+  .ant-table-thead > tr > th {
+    padding: 8px;
+  }
+
+  .ant-table-tbody > tr > td {
+    padding: 8px;
+  }
+
+  .search-bar {
+    width: 100% !important;
+  }
+}

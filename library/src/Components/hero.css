@@ -1,48 +1,65 @@
 #header {
   position: relative;
+  height: 100vh;
+  min-height: 600px;
   width: 100%;
-  min-height: 100vh;
   color: #fff;
-  text-align: center;
+  background: linear-gradient(45deg, #f06, transparent);
   overflow: hidden;
-  background: transparent;
-}
-
-.intro {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  text-align: center;
+}
+
+.intro {
   position: relative;
-  z-index: 1; /* Ensure text and button are above particles */
+  z-index: 2;
 }
 
 .intro-text {
-  z-index: 2; /* Ensure text and button are above particles */
-  padding-top: 20%; /* Adjust this value to vertically center the content */
+  color: #fff;
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 0 20px;
 }
 
-h1 {
+.intro-text h1 {
   font-size: 3.5rem;
-  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 1.2;
   margin-bottom: 20px;
-}
+  color: #fff;
+  text-transform: uppercase;}
 
-p {
-  font-size: 1.2rem;
-  margin-bottom: 40px;
+.intro-text p {
+  font-size: 1.25rem;
+  margin-bottom: 30px;
+  color: #fff;
+  text-transform: uppercase;
 }
 
 .btn-custom {
   color: #fff;
-  background-color: #3498db;
+  background-color: #007bff;
   border: none;
-  padding: 15px 30px;
-  font-size: 1.1rem;
+  padding: 10px 20px;
+  font-size: 1.25rem;
+  border-radius: 50px;
   text-transform: uppercase;
-  transition: background-color 0.3s;
 }
 
 .btn-custom:hover {
-  background-color: #2980b9;
+  background-color: #0056b3;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .intro-text h1 {
+    font-size: 2.5rem;
+  }
+
+  .intro-text p {
+    font-size: 1rem;
+  }
 }

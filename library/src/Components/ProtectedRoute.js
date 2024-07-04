@@ -19,13 +19,13 @@ function ProtectedRoute({ children }) {
       if (response.success) {
         dispatch(setUser(response.data));
       } else {
-        localStorage.removeItem("token")
-        navigate('/login')
+        localStorage.removeItem("token");
+        navigate("/login");
         message.error(response.message);
       }
     } catch (error) {
-      localStorage.removeItem("token")
-      navigate("/login")
+      localStorage.removeItem("token");
+      navigate("/login");
       dispatch(HideLoading());
       message.error(error.message);
     }
@@ -49,7 +49,7 @@ function ProtectedRoute({ children }) {
               className="text-2xl text-white font-bold cursor-pointer"
               onClick={() => navigate("/")}
             >
-            LIBRARY
+              LIBRARY
             </h1>
 
             <div className="flex items-center gap-1 bg-white p-1 rounded">

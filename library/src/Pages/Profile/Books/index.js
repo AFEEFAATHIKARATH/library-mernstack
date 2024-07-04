@@ -1,13 +1,16 @@
-import { message, Table } from "antd";
+import { message, Table, Input } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import Button from '../../../Components/Button'
+import Button from "../../../Components/Button";
 import BookForm from "./BookForm";
 import moment from "moment";
 import Issues from "./Issues";
 import IssueForm from "./IssueForm";
 import { DeleteBook, GetAllBooks } from "../../../services/books";
 import { HideLoading, ShowLoading } from "../../../Redux/loadersSlice";
+import "./books.css"; // Import the CSS file
+
+const { Search } = Input;
 
 function Books() {
   const [formType, setFormType] = useState("add");
@@ -16,6 +19,7 @@ function Books() {
   const [openIssues, setOpenIssues] = React.useState(false);
   const [openIssuesForm, setOpenIssuesForm] = React.useState(false);
   const [books, setBooks] = React.useState([]);
+  const [filteredBooks, setFilteredBooks] = React.useState([]);
   const dispatch = useDispatch();
 
   const getBooks = async () => {
@@ -25,6 +29,7 @@ function Books() {
       dispatch(HideLoading());
       if (response.success) {
         setBooks(response.data);
+        setFilteredBooks(response.data);
       } else {
         message.error(response.message);
       }
@@ -53,6 +58,17 @@ function Books() {
       dispatch(HideLoading());
       message.error(error.message);
     }
+  };
+
+  const handleSearch = (event) => {
+    const value = event.target.value.toLowerCase();
+    const filtered = books.filter(
+      (book) =>
+        book.title.toLowerCase().includes(value) ||
+        book.author.toLowerCase().includes(value) ||
+        book.category.toLowerCase().includes(value)
+    );
+    setFilteredBooks(filtered);
   };
 
   const columns = [
@@ -96,7 +112,7 @@ function Books() {
       render: (text, record) => (
         <div className="flex gap-1">
           <i
-            class="ri-delete-bin-5-line"
+            className="ri-delete-bin-5-line"
             onClick={() => deleteBook(record._id)}
           ></i>
           <i
@@ -130,9 +146,10 @@ function Books() {
       ),
     },
   ];
+
   return (
-    <div>
-      <div className="flex justify-end">
+    <div className="books-container">
+      <div className="header-container">
         <Button
           title="Add Book"
           onClick={() => {
@@ -141,9 +158,20 @@ function Books() {
             setOpenBookForm(true);
           }}
         />
+        <Search
+          placeholder="Search books"
+          onChange={handleSearch}
+          className="search-bar"
+        />
       </div>
 
-      <Table columns={columns} dataSource={books} className="mt-1" />
+      <Table
+        columns={columns}
+        dataSource={filteredBooks}
+        className="mt-1"
+        pagination={{ pageSize: 5 }}
+        scroll={{ x: 600 }}
+      />
 
       {openBookForm && (
         <BookForm

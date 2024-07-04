@@ -1,27 +1,33 @@
 .navigation-menu {
-  background-color: #fff;
-  font-size: 1rem;
-  text-transform: uppercase;
-  height: 70px; /* Increased height */
   display: flex;
+  justify-content: space-evenly;
   align-items: center;
+  background-color: #ffffff;
+  border-bottom: none;
+  height: 100px;
 }
 
-.navigation-menu .logo {
-  font-size: 1.5rem;
+.logo a {
+  color: #000;
   font-weight: bold;
-  color: #000; /* Changed to black */
+  font-size: 24px;
 }
 
-.navigation-menu .ant-menu-item a {
-  color: #000; /* Changed to black */
+.ant-menu-item a {
+  color: #000;
+  font-weight: normal;
+  font-size: 18px;
+ text-transform: uppercase;
+ margin-right: 100px;
 }
 
-.navigation-menu .ant-menu-item a:hover {
-  color: #3498db;
+.ant-menu-item:hover a {
+  color: #1890ff;
 }
 
-.navigation-menu .ant-menu-item-selected {
-  background-color: transparent !important;
-  border-bottom: 2px solid #3498db;
+.ant-menu-item-selected a {
+  color: #1890ff;
+}
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item::after {
+  border-bottom: none;
 }

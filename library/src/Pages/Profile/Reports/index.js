@@ -112,7 +112,7 @@ function Reports() {
 
             <div className="flex justify-between mt-1">
               <h1 className="text-md">Overdue Issues</h1>
-              <h1>{reports?.issues?.overdueIssuesCount || 0}</h1>
+              <h1>{reports?.issues?.overdueIssuesCount }</h1>
             </div>
           </div>
         </Col>

@@ -1,32 +1,32 @@
 import moment from "moment";
 import React from "react";
 import { useSelector } from "react-redux";
+import "./Basic.css";
 
 function BasicDetails() {
   const { user } = useSelector((state) => state.users);
   return (
-    <div>
-      <div className="rounded bg-secondary text-white flex flex-col p-2 w-50">
-        <div className="flex justify-between">
-          <h1 className="text-md">Name</h1>
-          <h1 className="text-md">{user.name}</h1>
+    <div className="card">
+      <div className="card-content">
+        <div className="detail">
+          <h1 className="label">Name</h1>
+          <h1 className="value">{user.name}</h1>
         </div>
-        <div className="flex justify-between">
-          <h1 className="text-md">Email</h1>
-          <h1 className="text-md">{user.email}</h1>
+        <div className="detail">
+          <h1 className="label">Email</h1>
+          <h1 className="value">{user.email}</h1>
         </div>
-        <div className="flex justify-between">
-          <h1 className="text-md">Phone</h1>
-          <h1 className="text-md">{user.phone}</h1>
+        <div className="detail">
+          <h1 className="label">Phone</h1>
+          <h1 className="value">{user.phone}</h1>
         </div>
-        <div className="flex justify-between">
-          <h1 className="text-md">Role</h1>
-          <h1 className="text-md uppercase">{user.role}</h1>
+        <div className="detail">
+          <h1 className="label">Role</h1>
+          <h1 className="value uppercase">{user.role}</h1>
         </div>
-
-        <div className="flex justify-between">
-          <h1 className="text-md">Registered On</h1>
-          <h1 className="text-md">
+        <div className="detail">
+          <h1 className="label">Registered On</h1>
+          <h1 className="value">
             {moment(user.createdAt).format("MMM Do YYYY, h:mm a")}
           </h1>
         </div>

@@ -7,7 +7,7 @@ import { RegisterUser } from "../../services/users";
 import { Form, message, Input } from "antd";
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../../Redux/loadersSlice";
-
+import './Register.css'
 
 
 function Register() {

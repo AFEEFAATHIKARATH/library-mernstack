@@ -1,5 +1,5 @@
 import React from "react";
-import { Menu } from "antd";
+import { Menu, Dropdown } from "antd";
 import { Link } from "react-router-dom";
 import "./Landing.css";
 
@@ -14,11 +14,38 @@ const Navigation = () => {
     }
   };
 
+  const profileMenu = (
+    <Menu>
+      <Menu.Item key="login">
+        <Link
+          to="#login"
+          onClick={() => scrollToSection("login")}
+          style={{ textDecoration: "none" }}
+        >
+          Login
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="signup">
+        <Link
+          to="#register"
+          onClick={() => scrollToSection("register")}
+          style={{ textDecoration: "none" }}
+        >
+          Signup
+        </Link>
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
     <Menu mode="horizontal" theme="light" className="navigation-menu">
       <Menu.Item key="logo" className="logo">
         <Link
-          style={{ textDecoration: "none" }}
+          style={{
+            textDecoration: "none",
+            fontWeight: "bold",
+            fontSize: "24px",
+          }}
           to="#page-top"
           onClick={() => scrollToSection("page-top")}
         >
@@ -61,7 +88,14 @@ const Navigation = () => {
           Gallery
         </Link>
       </Menu.Item>
-   
+
+      <Dropdown overlay={profileMenu} trigger={["click"]}>
+        <Menu.Item key="profile" className="profile-menu">
+          <Link to="#" style={{ textDecoration: "none" }}>
+            Profile
+          </Link>
+        </Menu.Item>
+      </Dropdown>
     </Menu>
   );
 };

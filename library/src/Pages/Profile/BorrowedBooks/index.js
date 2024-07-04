@@ -5,7 +5,7 @@ import moment from "moment";
 import { GetIssues } from "../../../services/issues";
 import { HideLoading, ShowLoading } from "../../../Redux/loadersSlice";
 
-function IssuedBooks() {
+function IssuedBooks({ showIssuedBooks, setShowIssuedBooks, selectedUser })  {
   const { user } = useSelector((state) => state.users);
   const [issuedBooks, setIssuedBooks] = React.useState([]);
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ function IssuedBooks() {
     try {
       dispatch(ShowLoading());
       const response = await GetIssues({
-        user: user._id,
+        user: selectedUser._id,
       });
       dispatch(HideLoading());
       if (response.success) {
@@ -69,7 +69,20 @@ function IssuedBooks() {
       },
     },
   ];
-  return <Table columns={columns} dataSource={issuedBooks} />;
+ return (
+   <Modal
+     open={showIssuedBooks}
+     onCancel={() => setShowIssuedBooks(false)}
+     footer={null}
+     width={1400}
+   >
+     <h1 className="text-secondary mb-1 text-xl text-center font-bold uppercase">
+       {selectedUser.name}'s Issued Books
+     </h1>
+
+     <Table columns={columns} dataSource={issuedBooks} />
+   </Modal>
+ );
 }
 
 export default IssuedBooks;

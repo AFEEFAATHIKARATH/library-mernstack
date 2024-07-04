@@ -14,17 +14,21 @@ import About from "./Pages/About";
 import Services from "./Pages/Services";
 import Gallery from "./Pages/Gallery";
 import Features from "./Pages/Features";
-import LandingPage from "./Components/LandingPage";
+
 import { useSelector } from "react-redux";
 import Loader from "./Components/Loader";
 import Profile from "./Pages/Profile";
 import BookDescription from "./Pages/BookDescription";
 
+import Main from "./Pages/Main";
+
 function App() {
-  const { loading } = useSelector((state)=>state.loaders)
+  const { loading } = useSelector((state) => state.loaders);
+
   return (
     <div className="App">
-      {loading && <Loader />}
+   
+      {loading && <Loader />} {/* Render loader when loading state is true */}
       <Routes>
         <Route
           path="/"
@@ -50,13 +54,13 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/about" element={<About />} />
         <Route path="/features" element={<Features />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/services" element={<Services />} />
-        <Route path="/landing" element={<LandingPage />} />
+       
       </Routes>
     </div>
   );

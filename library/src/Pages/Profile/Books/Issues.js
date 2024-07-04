@@ -1,23 +1,26 @@
-import { Button, Modal ,Table,message} from "antd";
-import React, { useEffect } from "react";
+import { Button, Modal, Table, message } from "antd";
+import React, { useEffect, useState } from "react";
 import { HideLoading, ShowLoading } from "../../../Redux/loadersSlice";
 import { DeleteIssue, GetIssues, ReturnBook } from "../../../services/issues";
 import { useDispatch } from "react-redux";
 import moment from "moment";
 import IssueForm from "./IssueForm";
 
+
+
+
 function Issues({ open = false, setOpen, selectedBook, reloadBooks }) {
-  const [issues, setIssues] = React.useState([]);
-  const [selectedIssue, setSelectedIssue] = React.useState(null);
-  const [showIssueForm, setShowIssueForm] = React.useState(false);
+  const [issues, setIssues] = useState([]);
+  const [selectedIssue, setSelectedIssue] = useState(null);
+  const [showIssueForm, setShowIssueForm] = useState(false);
   const dispatch = useDispatch();
+
   const getIssues = async () => {
     try {
       dispatch(ShowLoading());
-      const response = await GetIssues({
-        book: selectedBook._id,
-      });
+      const response = await GetIssues({ book: selectedBook._id });
       dispatch(HideLoading());
+
       if (response.success) {
         setIssues(response.data);
       }
@@ -28,25 +31,27 @@ function Issues({ open = false, setOpen, selectedBook, reloadBooks }) {
   };
 
   useEffect(() => {
-    getIssues();
-  }, []);
+    if (open) {
+      getIssues();
+    }
+  }, [open]);
 
-  const onReturnHandler = async (issue) => {
+  const handleReturn = async (issue) => {
     try {
-      // check if the book is returned before due date
       const today = moment().format("YYYY-MM-DD");
       const dueDate = moment(issue.returnDate).format("YYYY-MM-DD");
+
       if (today > dueDate) {
-        // book is returned after due date
-        // calculate the fine
-        const fine = moment(today).diff(dueDate, "days") * 1;
-        issue.fine = fine;
+        issue.fine = moment(today).diff(dueDate, "days") * 1;
       }
+
       issue.returnedDate = new Date();
       issue.book = issue.book._id;
+
       dispatch(ShowLoading());
       const response = await ReturnBook(issue);
       dispatch(HideLoading());
+
       if (response.success) {
         message.success(response.message);
         getIssues();
@@ -60,14 +65,12 @@ function Issues({ open = false, setOpen, selectedBook, reloadBooks }) {
     }
   };
 
-  const deleteIssueHandler = async (issue) => {
+  const handleDelete = async (issue) => {
     try {
       dispatch(ShowLoading());
-      const response = await DeleteIssue({
-        ...issue,
-        book: issue.book._id,
-      });
+      const response = await DeleteIssue({ ...issue, book: issue.book._id });
       dispatch(HideLoading());
+
       if (response.success) {
         message.success(response.message);
         getIssues();
@@ -117,59 +120,50 @@ function Issues({ open = false, setOpen, selectedBook, reloadBooks }) {
     {
       title: "Returned On",
       dataIndex: "returnedDate",
-      render: (returnedDate) => {
-        if (returnedDate) {
-          return moment(returnedDate).format("DD-MM-YYYY hh:mm A");
-        } else {
-          return "Not Returned Yet";
-        }
-      },
+      render: (returnedDate) =>
+        returnedDate
+          ? moment(returnedDate).format("DD-MM-YYYY hh:mm A")
+          : "Not Returned Yet",
     },
     {
       title: "Action",
       dataIndex: "action",
-      render: (action, record) => {
-        return (
-          !record.returnedDate && (
-            <div className="flex gap-1">
+      render: (action, record) => (
+        <div className="flex gap-1">
+          {!record.returnedDate && (
+            <>
               <Button
-                title="Renew"
                 onClick={() => {
                   setSelectedIssue(record);
                   setShowIssueForm(true);
                 }}
                 variant="outlined"
-              />
-              <Button
-                title="Return Now"
-                onClick={() => onReturnHandler(record)}
-                variant="outlined"
-              />
-              <Button
-                title="Delete"
-                variant="outlined"
-                onClick={() => deleteIssueHandler(record)}
-              />
-            </div>
-          )
-        );
-      },
+              >
+                Renew
+              </Button>
+              <Button onClick={() => handleReturn(record)} variant="outlined">
+                Return Now
+              </Button>
+            </>
+          )}
+          <Button onClick={() => handleDelete(record)} variant="outlined">
+            Delete
+          </Button>
+        </div>
+      ),
     },
   ];
 
   return (
     <Modal
-      title=""
-      open={open}
+      title={`Issues of ${selectedBook.title}`}
+      visible={open}
       onCancel={() => setOpen(false)}
       footer={null}
       width={1400}
       centered
     >
-      <h1 className="text-xl mt-1 mb-1 text-secondary uppercase font-bold text-center">
-        Issues of {selectedBook.title}
-      </h1>
-      <Table columns={columns} dataSource={issues} />
+      <Table columns={columns} dataSource={issues} rowKey="_id" />
 
       {showIssueForm && (
         <IssueForm
@@ -177,7 +171,6 @@ function Issues({ open = false, setOpen, selectedBook, reloadBooks }) {
           selectedIssue={selectedIssue}
           open={showIssueForm}
           setOpen={setShowIssueForm}
-          setSelectedBook={() => {}}
           getData={() => {
             getIssues();
             reloadBooks();
